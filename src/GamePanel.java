@@ -21,6 +21,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
      private ArrayList<Apple> apples;
      private Random r;
      private  int score = -1;
+     private int flag = 0;
     public GamePanel() {
         setFocusable(true);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -84,6 +85,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             if(xCoor == snake.get(i).getxCo_or() && yCoor == snake.get(i).getyCo_or()) {
                 if(i != snake.size()-1) {
                     System.out.println("Game Over");
+                    flag = 1;
                     stop();
                 }
             }
@@ -91,6 +93,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         //collision on border
         if(xCoor < 0 || xCoor > 49 || yCoor < 0 || yCoor > 49){
             System.out.println("Game Over");
+            flag = 1;
             stop();
         }
     }
@@ -110,7 +113,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         for (int i = 0; i < apples.size(); i++) {
             apples.get(i).draw(graphics);
         }
-        graphics.drawString("Score :" + Integer.toString(score), 10, 10);
+        graphics.drawString("Score :" + Integer.toString(score), 30, 30);
+        if (flag == 1) {
+            graphics.drawString("Game Over", 210, 240);
+        }
     }
 
     @Override
